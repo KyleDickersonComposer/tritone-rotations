@@ -10,3 +10,5 @@ dependencies = [
     "music21>=9.3.0",
     "numpy>=2.2.2",
 ]
+[tool.poetry.scripts]
+tritone-rotations = "tritone_rotations.main:main"
