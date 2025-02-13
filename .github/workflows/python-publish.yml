@@ -1,60 +1,21 @@
-name: Upload Python Package
+pypi-publish:
+  runs-on: ubuntu-latest
+  needs: release-build
+  permissions:
+    id-token: write  # Needed for trusted publishing
 
-on:
-  push:
-    branches:
-      - main  # Or the branch you want to track, e.g., 'develop'
+  environment:
+    name: pypi
 
-permissions:
-  contents: read
+  steps:
+    - name: Retrieve release distributions
+      uses: actions/download-artifact@v4
+      with:
+        name: release-dists
+        path: dist/
 
-jobs:
-  release-build:
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v4
-
-      - uses: actions/setup-python@v5
-        with:
-          python-version: "3.x"
-
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install build twine
-
-      - name: Build the distribution
-        run: |
-          # Build the package distributions (wheel and source)
-          python -m build
-
-      - name: Upload distribution artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: release-dists
-          path: dist/
-
-  pypi-publish:
-    runs-on: ubuntu-latest
-    needs: release-build
-    permissions:
-      id-token: write  # Needed for trusted publishing
-
-    environment:
-      name: pypi
-
-    steps:
-      - name: Retrieve release distributions
-        uses: actions/download-artifact@v4
-        with:
-          name: release-dists
-          path: dist/
-
-      - name: Publish to PyPI
-        uses: pypa/gh-action-pypi-publish@release/v1
-        with:
-          packages-dir: dist/
-          # Use the PyPI API token from GitHub Secrets
-          user: "__token__"
-          password: ${{ secrets.PYPI_API_TOKEN }}
+    - name: Publish to PyPI (with Trusted Publisher)
+      uses: pypa/gh-action-pypi-publish@release/v1
+      with:
+        packages-dir: dist/
+        attestations: true  # Enable attestations for trusted publishing

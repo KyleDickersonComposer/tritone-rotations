@@ -1,6 +1,6 @@
 [project]
 name = "tritone-rotations"
-version = "0.1.0"
+version = "0.1.1"
 description = "A cli tool for testing the permutations of diminished seventh chord transformations."
 authors = [{ name = "Kyle Dickerson", email = "kyledickersoncomposer@gmail.com" }]
 readme = "README.md"
