@@ -1,8 +1,9 @@
 name: Upload Python Package
 
 on:
-  release:
-    types: [published]
+  push:
+    branches:
+      - main  # Or the branch you want to track, e.g., 'develop'
 
 permissions:
   contents: read

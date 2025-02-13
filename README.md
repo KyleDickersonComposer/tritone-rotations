@@ -26,9 +26,9 @@ pip install dist/tritone_rotations-0.1.0-py3-none-any.whl
 
 ### Basic Usage
 ```bash
-tritone-rotations --chord B,D,F,Ab
+tritone-rotations --root C --naming flat --operation sequential
 ```
-This generates transformations for the diminished seventh chord [B, D, F, Ab].
+This generates transformations for the diminished seventh chord by transforming sequential notes. [C, EB, Gb, A] -> [Cb, D, Gb, A].
 
 ### Display Help
 ```bash
@@ -38,38 +38,16 @@ Shows available commands and options.
 
 ### Enable Plotting
 ```bash
-tritone-rotations --chord B,D,F,Ab --plot
+tritone-rotations --root C --naming flat --operation sequential
+ --plot
 ```
 Displays a `matplotlib` plot of transformations.
 
 ### Output as JSON
 ```bash
-tritone-rotations --chord B,D,F,Ab --json
+tritone-rotations --root C --naming flat --operation sequential --json
 ```
 Returns the transformations as structured JSON output.
-
-## Example Output
-
-```bash
-tritone-rotations --chord B,D,F,Ab --json
-```
-```json
-{
-  "original": ["B", "D", "F", "Ab"],
-  "semitone_shifts": {
-    "B#": ["C", "D", "F", "Ab"],
-    "Db": ["B", "Db", "F", "Ab"],
-    ...
-  }
-}
-```
-
-## Contributing
-
-1. Fork the repository.
-2. Clone your fork.
-3. Install dependencies using `pip`.
-4. Submit a pull request with your improvements!
 
 ## License
 MIT License
