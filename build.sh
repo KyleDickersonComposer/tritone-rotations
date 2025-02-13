@@ -1,1 +1,1 @@
-uv run main.py
+uv run ./tritone-rotations/main.py
