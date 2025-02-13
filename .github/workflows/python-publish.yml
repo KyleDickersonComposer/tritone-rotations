@@ -57,4 +57,4 @@ jobs:
           packages-dir: dist/
           # Use the PyPI API token from GitHub Secrets
           user: "__token__"
-          pypi-token: ${{ secrets.PYPI_API_TOKEN }}
+          password: ${{ secrets.PYPI_API_TOKEN }}
