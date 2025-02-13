@@ -48,6 +48,3 @@ Displays a `matplotlib` plot of transformations.
 tritone-rotations --root C --naming flat --operation sequential --json
 ```
 Returns the transformations as structured JSON output.
-
-## License
-MIT License
