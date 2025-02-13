@@ -1,0 +1,1 @@
+Add push to pypi on github release instead of push and implement some kind of version bumping mechanism.
