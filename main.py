@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 import sys
 import argparse
+import json
 import numpy as np
 import matplotlib.pyplot as plt
 from music21 import note, chord as m21chord
 
 NOTE_NAMES_SHARP = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"]
 NOTE_NAMES_FLAT = ["C", "Db", "D", "Eb", "E", "F", "Gb", "G", "Ab", "A", "Bb", "B"]
-
 NOTE_TO_PC = {
     "C": 0,
     "C#": 1,
@@ -134,14 +134,14 @@ def run_operation(operation, root_pc):
 
 def main():
     parser = argparse.ArgumentParser(
-        description="Music Theory CLI Library: Generate and analyze diminished 7th chords and their mutations.\n"
-        "Operations available:\n"
+        description="Music Theory CLI Library: Generate and analyze diminished 7th chords and their mutations.\n\n"
+        "Operations:\n"
         "  base       - Show the base diminished 7th chord\n"
         "  tritone    - Apply a tritone rotation to the chord\n"
-        "  single     - Shift a single note in the chord by ±1 semitone (all possibilities)\n"
-        "  sequential - Shift contiguous segments of the chord by ±1 semitone\n"
+        "  single     - Shift a single note by ±1 semitone (all possibilities)\n"
+        "  sequential - Shift contiguous segments by ±1 semitone\n"
         "  alternate  - Shift even or odd positions by ±1 semitone\n\n"
-        "Example usage: ./music_cli.py --root B --operation single --naming flat --plot",
+        "Example usage: ./music_cli.py --root B --operation single --naming flat --plot --json",
         formatter_class=argparse.RawTextHelpFormatter,
     )
     parser.add_argument(
@@ -169,24 +169,34 @@ def main():
         action="store_true",
         help="If provided, displays a matplotlib plot of the 12 pitch classes",
     )
-
+    parser.add_argument(
+        "--json",
+        action="store_true",
+        help="If provided, outputs the results in JSON format",
+    )
     if len(sys.argv) == 1:
         parser.print_help(sys.stderr)
         sys.exit("No arguments provided. Please see help above.")
-
     args = parser.parse_args()
-
     root_input = args.root.strip()
     if root_input not in NOTE_TO_PC:
         sys.exit("Invalid root note. Use standard names like C, C#, Db, etc.")
-
     root_pc = NOTE_TO_PC[root_input]
     chords = run_operation(args.operation, root_pc)
+    output = []
     for label, ch in chords:
         names = chord_to_names(ch, args.naming)
         analysis, pitches = analyze_chord(ch)
-        print(f"{label}: {names} | Analysis: {analysis} | Pitches: {pitches}")
-
+        output.append(
+            {"label": label, "chord": names, "analysis": analysis, "pitches": pitches}
+        )
+    if args.json:
+        print(json.dumps(output, indent=2))
+    else:
+        for entry in output:
+            print(
+                f"{entry['label']}: {entry['chord']} | Analysis: {entry['analysis']} | Pitches: {entry['pitches']}"
+            )
     if args.plot:
         plot_pitch_classes(args.naming)
 
