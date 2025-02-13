@@ -16,12 +16,6 @@ Using `pip`:
 pip install tritone-rotations
 ```
 
-Or, build from source:
-```bash
-python setup.py sdist bdist_wheel
-pip install dist/tritone_rotations-0.1.0-py3-none-any.whl
-```
-
 ## Usage
 
 ### Basic Usage
