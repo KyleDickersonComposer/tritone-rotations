@@ -1,9 +1,11 @@
 [project]
 name = "tritone-rotations"
-version = "0.1.7"
+version = "0.1.8"
 description = "A cli tool for testing the permutations of diminished seventh chord transformations."
 authors = [{ name = "Kyle Dickerson", email = "kyledickersoncomposer@gmail.com" }]
 readme = "README.md"
+long_description = { file = "README.md" }
+long_description_content_type = "text/markdown"
 requires-python = ">=3.13"
 dependencies = [
     "matplotlib>=3.10.0",
