@@ -141,7 +141,7 @@ def main():
         "  single     - Shift a single note by ±1 semitone (all possibilities)\n"
         "  sequential - Shift contiguous segments by ±1 semitone\n"
         "  alternate  - Shift even or odd positions by ±1 semitone\n\n"
-        "Example usage: ./music_cli.py --root B --operation single --naming flat --plot --json",
+        "Example usage: tritone-rotations --root B --operation single --naming flat --json",
         formatter_class=argparse.RawTextHelpFormatter,
     )
     parser.add_argument(

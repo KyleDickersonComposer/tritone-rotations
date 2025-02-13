@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - main  # Trigger on every push to the 'main' branch
+  release:
+    types: [created]  # Trigger when a new release is created
 
 permissions:
   id-token: write  # Required for trusted publishing
